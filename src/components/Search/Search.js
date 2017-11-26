@@ -1,7 +1,13 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { getResult, getIsFetching, getError } from "../../reducers/search";
+import {
+  getResult,
+  getIsFetching,
+  getIsFetched,
+  getError
+} from "../../reducers/search";
 import { searchRequest } from "../../actions/searchActions";
+import Panel from "../Panel";
 
 import "./Search.css";
 
@@ -29,11 +35,20 @@ class Search extends React.Component {
       searchRequest(query);
     }
   };
-
+  renderListShow = () => {
+    const { result, isFetched } = this.props;
+    let returnResult;
+    if (result.length && isFetched) {
+      returnResult = result.map(newProps => (
+        <Panel key={newProps.id} {...newProps} />
+      ));
+    }
+    return returnResult;
+  };
   render() {
-    const { isFetching, error, result } = this.props;
+    const { isFetching, error, isFetched } = this.props;
     const { query } = this.state;
-    console.log(isFetching, error, result);
+
     return (
       <div>
         <nav className="navbar navbar-inverse">
@@ -66,7 +81,13 @@ class Search extends React.Component {
         <div className="show-list">
           <div className="container">
             <div className="row">
-              <div className="col-lg-12">1</div>
+              <div className="col-lg-12">
+                <div className="row text-center">
+                  {isFetching && !isFetched
+                    ? "Загрузка"
+                    : this.renderListShow()}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -79,6 +100,7 @@ class Search extends React.Component {
 const mapStateToProps = state => ({
   result: getResult(state),
   isFetching: getIsFetching(state),
+  isFetched: getIsFetched(state),
   error: getError(state)
 });
 

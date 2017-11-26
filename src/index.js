@@ -10,6 +10,7 @@ const initialState = {
   search: {
     error: null,
     isFetching: false,
+    isFetched: false,
     result: []
   },
   shows: {

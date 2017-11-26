@@ -9,7 +9,6 @@ const showMiddleware = store => next => actions => {
   if (actions.type === fetchShowEntitiesRequest.toString()) {
     show(actions.payload)
       .then(data => {
-        console.log(data);
         store.dispatch(fetchShowEntitiesSuccess(data));
       })
       .catch(error => {

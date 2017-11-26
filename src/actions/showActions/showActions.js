@@ -9,7 +9,7 @@ export const {
     }
   }
 } = createActions({
-  show: {
+  SHOW: {
     ENTITIES: {
       FETCH_REQUEST: undefined,
       FETCH_SUCCESS: [

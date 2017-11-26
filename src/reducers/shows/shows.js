@@ -21,7 +21,7 @@ const isFetching = handleActions(
   false
 );
 
-const result = handleAction(
+const entities = handleAction(
   fetchShowEntitiesSuccess,
   (state, action) => action.payload,
   []
@@ -32,6 +32,6 @@ export const getIsFetching = state => state.shows.isFetching;
 
 export default combineReducers({
   error,
-  result,
+  entities,
   isFetching
 });

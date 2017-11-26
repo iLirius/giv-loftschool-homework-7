@@ -21,18 +21,29 @@ const isFetching = handleActions(
   false
 );
 
+const isFetched = handleActions(
+  {
+    [searchRequest]: () => false,
+    [searchSuccess]: () => true,
+    [searchFailure]: () => true
+  },
+  false
+);
+
 const result = handleAction(
   searchSuccess,
   (state, action) => action.payload,
   []
 );
 
-export const getResult = state => state.search.result;
-export const getIsFetching = state => state.search.isFetching;
 export const getError = state => state.search.error;
+export const getIsFetched = state => state.search.isFetched;
+export const getIsFetching = state => state.search.isFetching;
+export const getResult = state => state.search.result;
 
 export default combineReducers({
   error,
   result,
-  isFetching
+  isFetching,
+  isFetched
 });
